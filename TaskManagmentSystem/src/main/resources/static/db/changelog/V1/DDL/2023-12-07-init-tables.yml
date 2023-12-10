@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: '1'
+      author: 'Selyantsev Vladisav'
+
+      changes:
+        - createTable:
+            tableName: t_user
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+              - column:
+                  name: login
+                  type: varchar(64)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: hash_password
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: availability
+                  type: varchar(64)
+
+        - createTable:
+            tableName: t_task
+            columns:
+              - column:
+                  name: task_id
+                  type: uuid
+              - column:
+                  name: title
+                  type: varchar
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: author_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: executor_id
+                  type: uuid
+              - column:
+                  name: status
+                  type: varchar(64)
+              - column:
+                  name: task_priority
+                  type: varchar(64)
+              - column:
+                  name: availability
+                  type: varchar(64)
+
+        - createTable:
+            tableName: t_comment
+            columns:
+              - column:
+                  name: comment_id
+                  type: uuid
+              - column:
+                  name: body
+                  type: varchar(64)
+              - column:
+                  name: availability
+                  type: varchar(64)
