@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+jwt:
+  secret:
+    access: and0LnNlY3JldC5hY2Nlc3Muand0LnNlY3JldC5hY2Nlc3M=
+    refresh: and0LnNlY3JldC5yZWZyZXNoLmp3dC5zZWNyZXQucmVmcmVzaA==
+
+spring:
+  datasource:
+    username: postgres
+    password: rootroot
+    url: jdbc:postgresql://localhost:5432/task_management
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    change-log: static/db/changelog/changelog-master.yml
+
+logging:
+  level:
+    root: info
