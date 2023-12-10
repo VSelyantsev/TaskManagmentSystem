@@ -1,14 +1,13 @@
 package com.taskmanagment.model;
 
 import com.taskmanagment.model.enums.ActivityStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.taskmanagment.model.enums.Role;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -26,10 +25,18 @@ public class User {
 
     private String login;
     private String hashPassword;
+
+    @Enumerated(EnumType.STRING)
     private ActivityStatus availability;
+
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
-    // add security and role model
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 }

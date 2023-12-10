@@ -14,5 +14,6 @@ public class CommentResponse {
     private UUID commentId;
     private String body;
     private UUID taskId;
+    private UUID authorId;
     private ActivityStatus availability;
 }

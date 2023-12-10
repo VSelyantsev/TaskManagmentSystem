@@ -5,6 +5,7 @@ import com.taskmanagment.model.enums.ExecutionStatus;
 import com.taskmanagment.model.enums.Priority;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -21,4 +22,5 @@ public class TaskResponse {
     private ExecutionStatus status;
     private Priority taskPriority;
     private ActivityStatus availability;
+    private List<CommentResponse> comments;
 }

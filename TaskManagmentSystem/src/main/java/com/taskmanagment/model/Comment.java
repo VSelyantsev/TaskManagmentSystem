@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "t_entity")
+@Entity(name = "t_comment")
 public class Comment {
 
     @Id
@@ -21,10 +21,16 @@ public class Comment {
     private UUID commentId;
 
     private String body;
+
+    @Enumerated(EnumType.STRING)
     private ActivityStatus availability;
 
     @ManyToOne
     @JoinColumn(name = "task_id", referencedColumnName = "taskId")
     private Task task;
+
+    @ManyToOne
+    @JoinColumn(name = "author_comment_id", referencedColumnName = "userId")
+    private User user;
 
 }

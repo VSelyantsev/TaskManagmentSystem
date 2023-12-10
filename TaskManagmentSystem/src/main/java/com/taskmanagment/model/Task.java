@@ -28,8 +28,14 @@ public class Task {
 
     private UUID authorId;
     private UUID executorId;
+
+    @Enumerated(EnumType.STRING)
     private ExecutionStatus status;
+
+    @Enumerated(EnumType.STRING)
     private Priority taskPriority;
+
+    @Enumerated(EnumType.STRING)
     private ActivityStatus availability;
 
     @OneToMany(mappedBy = "task")

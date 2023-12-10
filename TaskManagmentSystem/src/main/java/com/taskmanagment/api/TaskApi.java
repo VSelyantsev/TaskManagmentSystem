@@ -2,11 +2,12 @@ package com.taskmanagment.api;
 
 import com.taskmanagment.dto.request.TaskRequest;
 import com.taskmanagment.dto.response.TaskResponse;
-import com.taskmanagment.model.enums.ExecutionStatus;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,16 +16,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "Task", description = "The Task Api")
+@Tag(name = "Task", description = "Api for performing interaction with Task model")
 @RequestMapping(value = "api/tasks")
-@Api(description = "Api for performing interaction with Task model")
 public interface TaskApi {
 
     @Operation(summary = "Create Task by TaskRequest")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Return TaskResponse performance", response = TaskResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = Void.class),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Return TaskResponse performance",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = TaskResponse.class)))
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @RequestMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -36,10 +40,14 @@ public interface TaskApi {
 
     @Operation(summary = "Find Task by Id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Return TaskResponse performance", response = TaskResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = Void.class),
-            @ApiResponse(code = 404, message = "Not Found", response = Void.class),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Return TaskResponse performance",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = TaskResponse.class)))
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @RequestMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -49,11 +57,15 @@ public interface TaskApi {
     @ResponseStatus(HttpStatus.OK)
     TaskResponse finTaskById(@PathVariable UUID taskId);
 
-    @Operation(summary = "Find all Tasks")
+    @Operation(summary = "Searches for tasks in which the authorized user is their EXECUTOR")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Return List of Tasks", response = List.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = Void.class),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Return List of Tasks",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = List.class)))
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @RequestMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -64,9 +76,13 @@ public interface TaskApi {
 
     @Operation(summary = "Update Task by taskId and TaskRequest")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Return List of Tasks", response = TaskResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = Void.class),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Return List of Tasks",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = TaskResponse.class)))
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @RequestMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -79,10 +95,14 @@ public interface TaskApi {
 
     @Operation(summary = "Update Task Status by Task Id and ExecutionStatus")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Return Updated TaskResponse", response = TaskResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = Void.class),
-            @ApiResponse(code = 404, message = "Not Found", response = Void.class),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Return Updated TaskResponse",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = TaskResponse.class)))
+            ),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @RequestMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -91,14 +111,14 @@ public interface TaskApi {
             value = "{taskId}"
     )
     @ResponseStatus(HttpStatus.OK)
-    TaskResponse updateTaskStatus(@PathVariable UUID taskId, @RequestBody ExecutionStatus executionStatus);
+    TaskResponse updateTaskStatus(@PathVariable UUID taskId, @RequestBody String executionStatus);
 
     @Operation(summary = "Delete Task by Id")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Deleted Successfully", response = Void.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = Void.class),
-            @ApiResponse(code = 404, message = "Task Not Found", response = Void.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = Void.class)
+            @ApiResponse(responseCode = "204", description = "Deleted Successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Task Not Found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @RequestMapping(
             method = RequestMethod.DELETE,
