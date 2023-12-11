@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public interface CommentApi {
             value = "{taskId}"
     )
     @ResponseStatus(HttpStatus.CREATED)
-    CommentResponse create(@PathVariable UUID taskId, @RequestBody CommentRequest commentRequest);
+    CommentResponse create(@PathVariable UUID taskId, @Valid @RequestBody CommentRequest commentRequest);
 
     @Operation(summary = "Find Comment by Id")
     @ApiResponses(value = {
@@ -94,7 +95,7 @@ public interface CommentApi {
             value = "{commentId}"
     )
     @ResponseStatus(HttpStatus.OK)
-    CommentResponse update(@PathVariable UUID commentId, @RequestBody CommentRequest commentRequest);
+    CommentResponse update(@PathVariable UUID commentId, @Valid @RequestBody CommentRequest commentRequest);
 
     @Operation(summary = "Delete Comment by id")
     @ApiResponses(value = {

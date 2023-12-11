@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public interface UserApi {
             value = "/registration"
     )
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponse create(@RequestBody UserRequest userRequest);
+    UserResponse create(@Valid @RequestBody UserRequest userRequest);
 
     @Operation(summary = "Find user by id")
     @ApiResponses(value = {
@@ -93,7 +94,7 @@ public interface UserApi {
             value = "{userId}"
     )
     @ResponseStatus(HttpStatus.OK)
-    UserResponse update(@PathVariable UUID userId, @RequestBody UserRequest userRequest);
+    UserResponse update(@PathVariable UUID userId, @Valid @RequestBody UserRequest userRequest);
 
     @Operation(summary = "Delete User by Id")
     @ApiResponses(value = {

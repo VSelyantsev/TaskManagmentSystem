@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public interface TaskApi {
             method = RequestMethod.POST
     )
     @ResponseStatus(HttpStatus.CREATED)
-    TaskResponse create(@RequestBody TaskRequest taskRequest);
+    TaskResponse create(@Valid @RequestBody TaskRequest taskRequest);
 
     @Operation(summary = "Find Task by Id")
     @ApiResponses(value = {
@@ -91,7 +92,7 @@ public interface TaskApi {
             value = "{taskId}"
     )
     @ResponseStatus(HttpStatus.OK)
-    TaskResponse update(@PathVariable UUID taskId, @RequestBody TaskRequest taskRequest);
+    TaskResponse update(@PathVariable UUID taskId, @Valid @RequestBody TaskRequest taskRequest);
 
     @Operation(summary = "Update Task Status by Task Id and ExecutionStatus")
     @ApiResponses(value = {
