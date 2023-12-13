@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ExecutionStatus {
     WAITING("WAITING"),
-    IN_PROCESS("IN_PROGRESS"),
+    IN_PROCESS("IN_PROCESS"),
     COMPLETED("COMPLETED");
 
     private final String name;

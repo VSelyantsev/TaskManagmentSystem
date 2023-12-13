@@ -26,8 +26,6 @@ public class TaskRequest {
     private UUID authorId;
     private UUID executorId;
     private ExecutionStatus status;
-
-    @NotNull(message = "Task Priority can not be NULL")
     private Priority taskPriority;
     private ActivityStatus availability;
 }
